@@ -1,7 +1,8 @@
 # Proposta de Projeto: Sistema de Orçamento Pessoal  
 
 ---
-
+## Nome: Jefté Gomes de Paula, Matrícula: 105469
+## Nome: Arthur Martins Máximo do Monte, Matrícula: 102025
 ## Tema e Descrição Geral  
 
 Nossa equipe irá desenvolver um **sistema de orçamento pessoal** acessível via web. O projeto é voltado para usuários que desejam registrar e organizar suas finanças, criando uma visão clara e objetiva de suas receitas e despesas.  
