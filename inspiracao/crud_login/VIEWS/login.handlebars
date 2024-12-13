@@ -1,0 +1,80 @@
+<div class="card p-4" style="width: 24rem;">
+    <h3 class="text-center mb-4">Login Form</h3>
+    <div class="toggle-btn mb-3">
+        <button class="active" id="login-tab">Login</button>
+        <button id="signup-tab">Signup</button>
+    </div>
+    <form id="form" method="post" action="/valida_login">
+        <div class="mb-3" id="username-field" style="display: none;">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Digite seu nome de usuário" name="username">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input name="email_address" type="email" class="form-control" id="email" placeholder="Digite seu email"
+                required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input name="password" type="password" class="form-control" id="password" placeholder="Digite sua senha"
+                required>
+        </div>
+        <div class="mb-3" id="confirm-password-field" style="display: none;">
+            <label for="confirm-password" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="confirm-password" placeholder="Confirme sua senha" name="password_confirmation">
+        </div>
+        <div class="form-text mb-3" id="forgot-password-text">Forgot password?</div>
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+    </form>
+</div>
+
+<!-- Modal de Senha Errada -->
+<div class="modal fade" id="wrongPasswordModal" tabindex="-1" aria-labelledby="wrongPasswordModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="wrongPasswordModalLabel">Senha Incorreta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                A senha que você inseriu está incorreta. Por favor, tente novamente.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal de Usuario Existente -->
+<div class="modal fade" id="UsuarioJaCadastrado" tabindex="-1" aria-labelledby="wrongPasswordModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="wrongPasswordModalLabel">Usuario já cadastrado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Já existe um usuario cadastrado com esse username. Por favor, tente novamente.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = () =>{
+        const modal = new bootstrap.Modal(document.getElementById('wrongPasswordModal'));
+        const modal2 = new bootstrap.Modal(document.getElementById('UsuarioJaCadastrado'));
+        {{#if passwordError}}
+            modal.show()
+        {{/if}}
+        {{#if userExists}}
+            modal2.show();
+        {{/if}}
+    }
+</script>

@@ -1,0 +1,58 @@
+body {
+    background: linear-gradient(135deg, #6a0dad, #ff7eb3);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-primary {
+    background: linear-gradient(90deg, #6a0dad, #ff7eb3);
+    border: none;
+}
+.btn-primary:hover {
+    background: linear-gradient(90deg, #ff7eb3, #6a0dad);
+}
+.form-text {
+    color: #ff7eb3;
+    text-align: center;
+}
+.toggle-btn {
+    display: flex;
+    justify-content: space-between;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 5px;
+}
+.toggle-btn button {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: #6c757d;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+.toggle-btn .active {
+    background: linear-gradient(90deg, #6a0dad, #ff7eb3);
+    color: #fff;
+    border-radius: 8px;
+}
+
+/* Home css */
+/* body {
+    background: linear-gradient(135deg, #6a0dad, #ff7eb3);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+} */
+.home_h1 {
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+}
