@@ -30,7 +30,6 @@ signupTab.addEventListener('click', () => {
     form.setAttribute('action', '/valida_cadastro');
     isSingUp = true; 
     usernameInput.setAttribute('required', '');
-    console.log(usernameField)
 });
 
 form.addEventListener('submit', function (event) {

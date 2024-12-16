@@ -6,14 +6,12 @@ const bcrypt = require('bcryptjs');
 
 router.post("/valida_cadastro", async (req, res) => {
     const { username, email_address, password } = req.body;
-    console.log(username, email_address, password)
     try {
         let userExists = await User.findOne({ where: { nome: username }, raw: true });
         if (!userExists) {
             userExists = await User.findOne({ where: { email: email_address }, raw: true });
         }
         if (userExists) {
-            console.log("Usuario ja cadastrado")
             return res.redirect('/?UserExists=true');
         }
         
@@ -22,7 +20,7 @@ router.post("/valida_cadastro", async (req, res) => {
         const newUser = await User.create({ nome: username, email: email_address, password: hashedPassword });
         
         req.session.user = {id: newUser.id, name: newUser.nome};
-        return res.render("home", { nome: username }); // Redireciona após o cadastro
+        return res.redirect("/home"); // Redireciona após o cadastro
     } catch (error) {
         console.error("Erro ao cadastrar usuário:", error);
         return res.status(500).send("Erro interno do servidor");
@@ -30,7 +28,6 @@ router.post("/valida_cadastro", async (req, res) => {
 });
 
 router.post("/valida_login", async (req, res) => {
-    console.log("valida login")
     const { email_address, password } = req.body;
 
     try {
@@ -43,16 +40,14 @@ router.post("/valida_login", async (req, res) => {
                 }
 
                 if (isMatch) {
-                    console.log("Autenticado com sucesso!");
                     req.session.user = {id: userExists.id, name: userExists.nome};
-                    return res.render("home", { nome: req.session.user.name });
+                    // res.render("home", { nome: req.session.user.name });
+                    return res.redirect("/home");
                 } else {
-                    console.log("Senha errada, tente outra vez!");
                     return res.redirect("/?password=wrong");
                 }
             });
         } else {
-            console.log("Usuário não encontrado!");
             return res.redirect("/?UserExists=false"); // Redireciona se o usuário não for encontrado
         }
     } catch (error) {

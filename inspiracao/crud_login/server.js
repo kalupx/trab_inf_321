@@ -3,10 +3,15 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const conn = require('./BD/conn');
 const User = require('./MODELS/User');
+const Despesas = require("./MODELS/Despesas");
 const session = require('express-session');
 const validaRoutes = require('./routes/validaRoutes');
-const { hashPassword } = require('./UTILS/utils')
-const authUser = require("./middlewares/auth")
+const homeRoutes = require('./routes/homeRoutes');
+const despesasRoutes = require('./routes/despesasRoutes');
+const { hashPassword } = require('./UTILS/utils');
+
+
+
 // Handlebar setup
 const app = express();
 app.engine("handlebars", exphbs.engine());
@@ -23,7 +28,7 @@ app.use(
         secret: 'MySecret', // Substituir!!!
         resave: false,
         saveUninitialized: false,
-        cookie: { maxAge: 60000 },
+        cookie: { maxAge: 60000 * 5 },
     })
 );
 
@@ -32,9 +37,10 @@ app.use(
 app.use(validaRoutes);
 
 // Rota para a página inicial (home)
-app.get("/home", authUser, (req, res) => {
-    res.render('home', {nome: req.session.user ? req.session.user.name : null});
-});
+app.use(homeRoutes);
+
+//rota para cadastro de despesa
+app.use(despesasRoutes);
 
 // Rota para a página de login
 app.get('/', (req, res) => {
@@ -50,7 +56,51 @@ conn.sync({force: true}).then(async () => {
         const adminExists = await User.findOne({ where: { nome: "admin" } });
         if (!adminExists) {
             const hashedPassword = await hashPassword("1234");
-            await User.create({ nome: "admin", email: "admin@admin.com", password: hashedPassword });
+            admin = await User.create({ nome: "admin", email: "admin@admin.com", password: hashedPassword });
+            const despesas = [
+                {
+                    descricao: "Compra de material de escritório",
+                    valor: 200.50,
+                    tipoDePagamento: "D", // Dinheiro
+                    data: new Date(),
+                    userId: admin.id
+                },
+                {
+                    descricao: "Aluguel do mês",
+                    valor: 1500.00,
+                    tipoDePagamento: "P", // Pix/Débito
+                    data: new Date(),
+                    userId: admin.id
+                },
+                {
+                    descricao: "Compra de café",
+                    valor: 50.00,
+                    tipoDePagamento: "C", // Crédito
+                    data: new Date(),
+                    userId: admin.id
+                },
+                {
+                    descricao: "Internet e telefone",
+                    valor: 300.00,
+                    tipoDePagamento: "P", // Pix/Débito
+                    data: new Date(),
+                    userId: admin.id
+                },
+                {
+                    descricao: "Manutenção de computador",
+                    valor: 400.75,
+                    tipoDePagamento: "D", // Dinheiro
+                    data: new Date(),
+                    userId: admin.id
+                }
+            ]; //mock de despesas
+            
+            // Cria as despesas no banco de dados
+            await Promise.all(
+                despesas.map(async (despesa) => {
+                    await Despesas.create(despesa);
+                })
+            );
         }
 
         app.listen(5000, () => {
