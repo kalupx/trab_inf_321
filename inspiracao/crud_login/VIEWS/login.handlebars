@@ -30,17 +30,15 @@
     </form>
 </div>
 
-<!-- Modal de Senha Errada -->
-<div class="modal fade" id="wrongPasswordModal" tabindex="-1" aria-labelledby="wrongPasswordModalLabel"
-    aria-hidden="true">
+<!-- Modal Error -->
+<div class="modal fade" id="genericModal" tabindex="-1" aria-labelledby="genericModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="wrongPasswordModalLabel">Senha Incorreta</h5>
+                <h5 class="modal-title" id="genericModalLabel">Mensagem</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                A senha que você inseriu está incorreta. Por favor, tente novamente.
+            <div class="modal-body" id="modal-body-content">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
@@ -48,33 +46,22 @@
         </div>
     </div>
 </div>
-<!-- Modal de Usuario Existente -->
-<div class="modal fade" id="UsuarioJaCadastrado" tabindex="-1" aria-labelledby="wrongPasswordModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="wrongPasswordModalLabel">Usuario já cadastrado</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Já existe um usuario cadastrado com esse username. Por favor, tente novamente.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 <script>
-    window.onload = () =>{
-        const modal = new bootstrap.Modal(document.getElementById('wrongPasswordModal'));
-        const modal2 = new bootstrap.Modal(document.getElementById('UsuarioJaCadastrado'));
-        {{#if passwordError}}
-            modal.show()
-        {{/if}}
-        {{#if userExists}}
-            modal2.show();
-        {{/if}}
+    window.onload = () => {
+    const modal = new bootstrap.Modal(document.getElementById('genericModal'));
+
+    if ({{#if passwordError}} true {{else}} false {{/if}}) {
+        // Exibe a mensagem de senha incorreta
+        document.getElementById('genericModalLabel').textContent = 'Senha Incorreta';
+        document.getElementById('modal-body-content').textContent = 'A senha que você inseriu está incorreta. Por favor, tente novamente.';
+        modal.show();
+    } else if ({{#if userExists}} true {{else}} false {{/if}}) {
+        // Exibe a mensagem de usuário já cadastrado
+        document.getElementById('genericModalLabel').textContent = 'Usuário Já Cadastrado';
+        document.getElementById('modal-body-content').textContent = 'Já existe um usuário cadastrado com esse username. Por favor, tente novamente.';
+        modal.show();
     }
+}
+
 </script>
