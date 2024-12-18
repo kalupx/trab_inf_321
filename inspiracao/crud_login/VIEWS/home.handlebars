@@ -1,101 +1,35 @@
-<div class="container mt-5">
-    <!-- Saudação -->
-    <h1 class="display-4 text-white fw-bold">Olá {{userData.name}}</h1>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Botão de Logout -->
-    <h2 class="mt-5 text-dark fw-bold">Suas Despesas</h2>
-    <div class="table-responsive">
-        <table class="table table-hover table-bordered shadow-lg mt-3">
-            <thead class="bg-primary text-white text-center">
-                <tr>
-                    <th scope="col">Descrição</th>
-                    <th scope="col">Valor (R$)</th>
-                    <th scope="col">Tipo de Pagamento</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Data</th>
-                </tr>
-            </thead>
-            <tbody class="text-center align-middle">
-                {{#each despesas}}
-                <tr>
-                    <td class="fw-semibold">{{descricao}}</td>
-                    <td>R$ {{valor}}</td>
-                    <td>{{tipoDePagamento}}</td>
-                    <td>{{categoria}}</td>
-                    <td>{{data}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
+<div class="d-flex w-100">
+    <!-- Menu Lateral -->
+    {{> menu}}
+
+    <!-- Conteúdo Principal -->
+    <div class="container d-flex align-items-center justify-content-end" style="height: 100vh;">
+        <h1 class="display-4 fw-bold me-5" style="color: #6a0dad;">Olá {{userData.nome}}</h1>
     </div>
-    <form action="/logout" method="POST">
-        <button type="submit" class="btn btn-danger mt-3">Logout</button>
-    </form>
 
-    <!-- Botão Adicionar Nova Despesa -->
-    <button type="button" class="btn btn-success mt-4" data-bs-toggle="modal" data-bs-target="#novaDespesaModal">
-        + Adicionar Nova Despesa
-    </button>
 
-    <!-- Modal Nova Despesa -->
-    <div class="modal fade" id="novaDespesaModal" tabindex="-1" aria-labelledby="novaDespesaModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="novaDespesaModalLabel">Nova Despesa</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="/adicionar_despesa/{{userData.id}}" method="POST">
-                        <!-- Valor -->
-                        <div class="mb-3">
-                            <label for="valor" class="form-label">Valor (R$)</label>
-                            <input type="number" step="0.01" class="form-control" id="valor" name="valor" placeholder="Ex: 100.00" required>
-                        </div>
-
-                        <!-- Data -->
-                        <div class="mb-3">
-                            <label for="data" class="form-label">Data</label>
-                            <input type="date" class="form-control" id="data" name="data" required>
-                        </div>
-
-                        <!-- Descrição -->
-                        <div class="mb-3">
-                            <label for="descricao" class="form-label">Descrição</label>
-                            <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Ex: Restaurante" required>
-                        </div>
-
-                        <!-- Tipo de Pagamento -->
-                        <div class="mb-3">
-                            <label for="tipoDePagamento" class="form-label">Tipo de Pagamento</label>
-                            <select class="form-select" id="tipoDePagamento" name="tipoDePagamento" required>
-                                <option value="" disabled selected>Escolha...</option>
-                                <option value="D">Dinheiro</option>
-                                <option value="P">Pix/Débito</option>
-                                <option value="C">Crédito</option>
-                            </select>
-                        </div>
-
-                        <!-- Categoria -->
-                        <div class="mb-3">
-                            <label for="categoria" class="form-label">Categoria</label>
-                            <select class="form-select" id="categoria" name="categoria" required>
-                                <option value="" disabled selected>Escolha...</option>
-                                <option value="Alimentação">Alimentação</option>
-                                <option value="Transporte">Transporte</option>
-                                <option value="Lazer">Lazer</option>
-                                <option value="Saúde">Saúde</option>
-                                <option value="Outros">Outros</option>
-                            </select>
-                        </div>
-
-                        <!-- Botão de Envio -->
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Adicionar Despesa</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
+
+<style>
+    body {
+        margin: 0;
+        background-color: #f8f9fa;
+    }
+
+    .nav-link {
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .nav-link:hover {
+        background-color: #495057;
+    }
+
+    .container {
+        padding-left: 20px;
+    }
+</style>

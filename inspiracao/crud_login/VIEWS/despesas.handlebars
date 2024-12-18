@@ -1,0 +1,121 @@
+<div class="d-flex w-100">
+    <!-- Partial Menu -->
+    {{> menu}}
+    <div class="container mt-5">
+
+        <!-- Saudação -->
+        <h1 class="display-4 text-white fw-bold">Olá {{userData.nome}}</h1>
+
+        <h2 class="mt-5 text-dark fw-bold">Suas Despesas</h2>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered shadow-lg mt-3">
+                <thead class="bg-primary text-white text-center">
+                    <tr>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Valor (R$)</th>
+                        <th scope="col">Tipo de Pagamento</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Excluir</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center align-middle">
+                    {{#each despesas}}
+                    <tr>
+                        <td class="fw-semibold">{{descricao}}</td>
+                        <td>R$ {{valor}}</td>
+                        <td>{{tipoDePagamento}}</td>
+                        <td>{{categoria}}</td>
+                        <td>{{data}}</td>
+                        <td>
+                            <!-- Botão Editar -->
+                            <a href="/editar_despesa/{{id}}" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
+                        </td>
+                        <td>
+                            {{!-- <a href="/excluir_despesa/{{id}}" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash3"></i>
+                            </a> --}}
+
+                            <form action="/excluir_despesa" method="post">
+                                <input type="hidden" name="id" value="{{id}}">
+                                <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash3"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Botão Adicionar Nova Despesa -->
+        <button type="button" class="btn btn-success mt-4" data-bs-toggle="modal" data-bs-target="#novaDespesaModal">
+            + Adicionar Nova Despesa
+        </button>
+
+        <!-- Modal Nova Despesa -->
+        <div class="modal fade" id="novaDespesaModal" tabindex="-1" aria-labelledby="novaDespesaModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="novaDespesaModalLabel">Nova Despesa</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/adicionar_despesa/{{userData.id}}" method="POST">
+                            <!-- Valor -->
+                            <div class="mb-3">
+                                <label for="valor" class="form-label">Valor (R$)</label>
+                                <input type="number" step="0.01" class="form-control" id="valor" name="valor" placeholder="Ex: 100.00" required>
+                            </div>
+
+                            <!-- Data -->
+                            <div class="mb-3">
+                                <label for="data" class="form-label">Data</label>
+                                <input type="date" class="form-control" id="data" name="data" required>
+                            </div>
+
+                            <!-- Descrição -->
+                            <div class="mb-3">
+                                <label for="descricao" class="form-label">Descrição</label>
+                                <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Ex: Restaurante" required>
+                            </div>
+
+                            <!-- Tipo de Pagamento -->
+                            <div class="mb-3">
+                                <label for="tipoDePagamento" class="form-label">Tipo de Pagamento</label>
+                                <select class="form-select" id="tipoDePagamento" name="tipoDePagamento" required>
+                                    <option value="" disabled selected>Escolha...</option>
+                                    <option value="D">Dinheiro</option>
+                                    <option value="P">Pix/Débito</option>
+                                    <option value="C">Crédito</option>
+                                </select>
+                            </div>
+
+                            <!-- Categoria -->
+                            <div class="mb-3">
+                                <label for="categoria" class="form-label">Categoria</label>
+                                <select class="form-select" id="categoria" name="categoria" required>
+                                    <option value="" disabled selected>Escolha...</option>
+                                    <option value="Alimentação">Alimentação</option>
+                                    <option value="Transporte">Transporte</option>
+                                    <option value="Lazer">Lazer</option>
+                                    <option value="Saúde">Saúde</option>
+                                    <option value="Outros">Outros</option>
+                                </select>
+                            </div>
+
+                            <!-- Botão de Envio -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Adicionar Despesa</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">

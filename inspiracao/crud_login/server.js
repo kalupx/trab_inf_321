@@ -9,13 +9,18 @@ const validaRoutes = require('./routes/validaRoutes');
 const homeRoutes = require('./routes/homeRoutes');
 const despesasRoutes = require('./routes/despesasRoutes');
 const { hashPassword } = require('./UTILS/utils');
+const path = require('path');
 
 
 
 // Handlebar setup
 const app = express();
-app.engine("handlebars", exphbs.engine());
+app.engine("handlebars", exphbs.engine(
+    {partialsDir: path.join(__dirname, 'VIEWS', 'partials')}
+));
 app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'VIEWS'));
+
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
