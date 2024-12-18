@@ -29,16 +29,16 @@
                         <td>{{categoria}}</td>
                         <td>{{data}}</td>
                         <td>
-                            <!-- Botão Editar -->
-                            <a href="/editar_despesa/{{id}}" class="btn btn-warning btn-sm">
+                            <button 
+                                type="button" 
+                                class="btn btn-warning btn-sm"
+                                onclick="abrirModalEdicao('{{id}}', '{{valor}}', '{{data}}', '{{descricao}}', '{{tipoDePagamento}}', '{{categoria}}')"
+                                data-bs-toggle="modal" 
+                                data-bs-target="#editarDespesaModal">
                                 <i class="bi bi-pencil"></i> Editar
-                            </a>
+                            </button>
                         </td>
                         <td>
-                            {{!-- <a href="/excluir_despesa/{{id}}" class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash3"></i>
-                            </a> --}}
-
                             <form action="/excluir_despesa" method="post">
                                 <input type="hidden" name="id" value="{{id}}">
                                 <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash3"></i></button>
@@ -116,6 +116,97 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal Editar Despesa -->
+        <div class="modal fade" id="editarDespesaModal" tabindex="-1" aria-labelledby="editarDespesaModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-warning text-white">
+                        <h5 class="modal-title" id="editarDespesaModalLabel">Editar Despesa</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editarDespesaForm" method="POST">
+                            <!-- Campo Oculto ID -->
+                            <input type="hidden" id="editarId" name="id">
+
+                            <!-- Valor -->
+                            <div class="mb-3">
+                                <label for="editarValor" class="form-label">Valor (R$)</label>
+                                <input type="number" step="0.01" class="form-control" id="editarValor" name="valor" required>
+                            </div>
+
+                            <!-- Data -->
+                            <div class="mb-3">
+                                <label for="editarData" class="form-label">Data</label>
+                                <input type="date" class="form-control" id="editarData" name="data" required>
+                            </div>
+
+                            <!-- Descrição -->
+                            <div class="mb-3">
+                                <label for="editarDescricao" class="form-label">Descrição</label>
+                                <input type="text" class="form-control" id="editarDescricao" name="descricao" required>
+                            </div>
+
+                            <!-- Tipo de Pagamento -->
+                            <div class="mb-3">
+                                <label for="editarTipoDePagamento" class="form-label">Tipo de Pagamento</label>
+                                <select class="form-select" id="editarTipoDePagamento" name="tipoDePagamento" required>
+                                    <option value="D">Dinheiro</option>
+                                    <option value="P">Pix/Débito</option>
+                                    <option value="C">Crédito</option>
+                                </select>
+                            </div>
+
+                            <!-- Categoria -->
+                            <div class="mb-3">
+                                <label for="editarCategoria" class="form-label">Categoria</label>
+                                <select class="form-select" id="editarCategoria" name="categoria" required>
+                                    <option value="Alimentação">Alimentação</option>
+                                    <option value="Transporte">Transporte</option>
+                                    <option value="Lazer">Lazer</option>
+                                    <option value="Saúde">Saúde</option>
+                                    <option value="Outros">Outros</option>
+                                </select>
+                            </div>
+
+                            <!-- Botão de Envio -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-warning">Salvar Alterações</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+    <script>
+        function abrirModalEdicao(id, valor, data, descricao, tipoDePagamento, categoria) {
+            const partesData = data.split('/');
+            const dataFormatada = `${partesData[2]}-${partesData[1]}-${partesData[0]}`;
+            let pagamentoValue = null;
+            if(tipoDePagamento === "Dinheiro"){
+                pagamentoValue = "D"
+            }
+            if(tipoDePagamento === "Pix/Débito"){
+                pagamentoValue = "P"
+            }
+            if(tipoDePagamento === "Crédito"){
+                pagamentoValue = "C"
+            }
+            console.log(id, valor, data, descricao, tipoDePagamento, pagamentoValue, categoria)
+            document.getElementById('editarId').value = id;
+            document.getElementById('editarValor').value = valor;
+            document.getElementById('editarData').value = dataFormatada;
+            document.getElementById('editarDescricao').value = descricao;
+            document.getElementById('editarTipoDePagamento').value = pagamentoValue;
+            document.getElementById('editarCategoria').value = categoria;
+
+            // Definir a ação do formulário
+            document.getElementById('editarDespesaForm').action = `/editar_despesa`;
+        }
+    </script>
+
 </div>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">

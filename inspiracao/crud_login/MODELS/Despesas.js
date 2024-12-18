@@ -23,7 +23,7 @@ const Despesas = db.define("Despesas", {
     },
     categoria: {
         type: DataTypes.STRING,
-        defaultValue: "diversos",
+        defaultValue: "Outros",
     }
 });
 

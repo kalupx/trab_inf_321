@@ -10,8 +10,10 @@ const homeRoutes = require('./routes/homeRoutes');
 const despesasRoutes = require('./routes/despesasRoutes');
 const { hashPassword } = require('./UTILS/utils');
 const path = require('path');
+const moment = require('moment-timezone');
 
-
+//arumando data/hora do servidor
+moment.tz.setDefault('America/Sao_Paulo');
 
 // Handlebar setup
 const app = express();
