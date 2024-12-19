@@ -88,9 +88,9 @@
                                 <label for="tipoDePagamento" class="form-label">Tipo de Pagamento</label>
                                 <select class="form-select" id="tipoDePagamento" name="tipoDePagamento" required>
                                     <option value="" disabled selected>Escolha...</option>
-                                    <option value="D">Dinheiro</option>
-                                    <option value="P">Pix/Débito</option>
-                                    <option value="C">Crédito</option>
+                                    <option value="Dinheiro">Dinheiro</option>
+                                    <option value="Pix/Débito">Pix/Débito</option>
+                                    <option value="Crédito">Crédito</option>
                                 </select>
                             </div>
 
@@ -152,9 +152,9 @@
                             <div class="mb-3">
                                 <label for="editarTipoDePagamento" class="form-label">Tipo de Pagamento</label>
                                 <select class="form-select" id="editarTipoDePagamento" name="tipoDePagamento" required>
-                                    <option value="D">Dinheiro</option>
-                                    <option value="P">Pix/Débito</option>
-                                    <option value="C">Crédito</option>
+                                    <option value="Dinheiro">Dinheiro</option>
+                                    <option value="Pix/Débito">Pix/Débito</option>
+                                    <option value="Crédito">Crédito</option>
                                 </select>
                             </div>
 
@@ -185,22 +185,11 @@
         function abrirModalEdicao(id, valor, data, descricao, tipoDePagamento, categoria) {
             const partesData = data.split('/');
             const dataFormatada = `${partesData[2]}-${partesData[1]}-${partesData[0]}`;
-            let pagamentoValue = null;
-            if(tipoDePagamento === "Dinheiro"){
-                pagamentoValue = "D"
-            }
-            if(tipoDePagamento === "Pix/Débito"){
-                pagamentoValue = "P"
-            }
-            if(tipoDePagamento === "Crédito"){
-                pagamentoValue = "C"
-            }
-            console.log(id, valor, data, descricao, tipoDePagamento, pagamentoValue, categoria)
             document.getElementById('editarId').value = id;
             document.getElementById('editarValor').value = valor;
             document.getElementById('editarData').value = dataFormatada;
             document.getElementById('editarDescricao').value = descricao;
-            document.getElementById('editarTipoDePagamento').value = pagamentoValue;
+            document.getElementById('editarTipoDePagamento').value = tipoDePagamento;
             document.getElementById('editarCategoria').value = categoria;
 
             // Definir a ação do formulário

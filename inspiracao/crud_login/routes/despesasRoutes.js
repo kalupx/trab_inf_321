@@ -5,7 +5,6 @@ const express = require('express');
 const router = express.Router();
 const authUser = require("../middlewares/auth");
 const { formatarData } = require("../UTILS/utils");
-const { where } = require("sequelize");
 
 router.get("/despesas", authUser, async (req, res)=>{
     try {
@@ -16,19 +15,6 @@ router.get("/despesas", authUser, async (req, res)=>{
             raw: true
         });
         despesas.forEach((despesa) => {
-            switch(despesa.tipoDePagamento) {
-                case 'D':
-                    despesa.tipoDePagamento = 'Dinheiro';
-                    break;
-                case 'C':
-                    despesa.tipoDePagamento = 'Crédito';
-                    break;
-                case 'P':
-                    despesa.tipoDePagamento = 'Pix/Débito';
-                    break;
-                default:
-                    despesa.tipoDePagamento = 'Desconhecido';
-            }
             despesa.data = formatarData(despesa.data);
         })
         

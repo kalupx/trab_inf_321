@@ -10,10 +10,6 @@ const homeRoutes = require('./routes/homeRoutes');
 const despesasRoutes = require('./routes/despesasRoutes');
 const { hashPassword } = require('./UTILS/utils');
 const path = require('path');
-const moment = require('moment-timezone');
-
-//arumando data/hora do servidor
-moment.tz.setDefault('America/Sao_Paulo');
 
 // Handlebar setup
 const app = express();
@@ -63,40 +59,40 @@ conn.sync({force: true}).then(async () => {
         const adminExists = await User.findOne({ where: { nome: "admin" } });
         if (!adminExists) {
             const hashedPassword = await hashPassword("1234");
-            admin = await User.create({ nome: "admin", email: "admin@admin.com", password: hashedPassword });
+            const admin = await User.create({ nome: "admin", email: "admin@admin.com", password: hashedPassword });
             const despesas = [
                 {
                     descricao: "Compra de material de escritório",
                     valor: 200.50,
-                    tipoDePagamento: "D", // Dinheiro
+                    tipoDePagamento: "Dinheiro", 
                     data: new Date(),
                     userId: admin.id
                 },
                 {
                     descricao: "Aluguel do mês",
                     valor: 1500.00,
-                    tipoDePagamento: "P", // Pix/Débito
+                    tipoDePagamento: "Pix/Débito",  
                     data: new Date(),
                     userId: admin.id
                 },
                 {
                     descricao: "Compra de café",
                     valor: 50.00,
-                    tipoDePagamento: "C", // Crédito
+                    tipoDePagamento: "Crédito", 
                     data: new Date(),
                     userId: admin.id
                 },
                 {
                     descricao: "Internet e telefone",
                     valor: 300.00,
-                    tipoDePagamento: "P", // Pix/Débito
+                    tipoDePagamento: "Pix/Débito",
                     data: new Date(),
                     userId: admin.id
                 },
                 {
                     descricao: "Manutenção de computador",
                     valor: 400.75,
-                    tipoDePagamento: "D", // Dinheiro
+                    tipoDePagamento: "Dinheiro", 
                     data: new Date(),
                     userId: admin.id
                 }
