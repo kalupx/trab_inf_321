@@ -1,0 +1,58 @@
+<div class="container my-4">
+    <h2 class="fw-bold mb-4">Dashboard</h2>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div>
+                        <h6 class="text-muted">Saldo atual ></h6>
+                        <h5 class="fw-bold">R$ 0,00</h5>
+                    </div>
+                    <i class="bi bi-bank fs-2 ms-auto text-primary"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div>
+                        <h6 class="text-muted">Receitas ></h6>
+                        <h5 class="fw-bold">R$ 0,00</h5>
+                    </div>
+                    <i class="bi bi-arrow-up-circle-fill fs-2 ms-auto text-success"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div>
+                        <h6 class="text-muted">Despesas ></h6>
+                        <h5 id="despesas_value" class="fw-bold">R$ 0,00</h5>
+                    </div>
+                    <i class="bi bi-arrow-down-circle-fill fs-2 ms-auto text-danger"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div>
+                        <h6 class="text-muted">Cartão de crédito ></h6>
+                        <h5 class="fw-bold">R$ 0,00</h5>
+                    </div>
+                    <i class="bi bi-credit-card-2-front-fill fs-2 ms-auto text-teal"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = () =>{
+        const despesasPartial = {{{json despesas}}}
+        const totalDespesas = despesasPartial.reduce((sum, despesa) => sum + despesa.valor, 0);
+        console.log(totalDespesas);
+        const depesasElement = document.querySelector("#despesas_value");
+        depesasElement.innerHTML = totalDespesas
+    }
+</script>

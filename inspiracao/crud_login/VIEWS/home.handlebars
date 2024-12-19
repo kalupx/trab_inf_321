@@ -5,8 +5,12 @@
     {{> menu}}
 
     <!-- Conteúdo Principal -->
-    <div class="container d-flex align-items-center justify-content-end" style="height: 100vh;">
-        <h1 class="display-4 fw-bold me-5" style="color: #6a0dad;">Olá {{userData.nome}}</h1>
+    <div class="container d-flex align-items-center justify-content-start flex-column" style="height: 100vh;">
+        {{> relatorio}}
+        <div class="container d-flex justify-content-end align-items-center" style="height: 65%;">
+            <h1 class="display-4 fw-bold" style="color: #6a0dad;">Olá {{userData.nome}}</h1>
+        </div>
+
     </div>
 
 

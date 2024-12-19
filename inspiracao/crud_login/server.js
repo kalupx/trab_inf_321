@@ -10,16 +10,59 @@ const homeRoutes = require('./routes/homeRoutes');
 const despesasRoutes = require('./routes/despesasRoutes');
 const { hashPassword } = require('./UTILS/utils');
 const path = require('path');
+const despesas = [
+    {
+        descricao: "Compra de material de escritório",
+        valor: 200.50,
+        tipoDePagamento: "Dinheiro", 
+        data: new Date(),
+        userId: 1
+    },
+    {
+        descricao: "Aluguel do mês",
+        valor: 1500.00,
+        tipoDePagamento: "Pix/Débito",  
+        data: new Date(),
+        userId: 1
+    },
+    {
+        descricao: "Compra de café",
+        valor: 50.00,
+        tipoDePagamento: "Crédito", 
+        data: new Date(),
+        userId: 1
+    },
+    {
+        descricao: "Internet e telefone",
+        valor: 300.00,
+        tipoDePagamento: "Pix/Débito",
+        data: new Date(),
+        userId: 1
+    },
+    {
+        descricao: "Manutenção de computador",
+        valor: 400.75,
+        tipoDePagamento: "Dinheiro", 
+        data: new Date(),
+        userId: 1
+    }
+]; //mock de despesas
+
 
 // Handlebar setup
 const app = express();
-app.engine("handlebars", exphbs.engine(
-    {partialsDir: path.join(__dirname, 'VIEWS', 'partials')}
-));
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'VIEWS'));
 
-
+const hbs = exphbs.create({
+    helpers: {
+        json: function (context) {
+            return JSON.stringify(context);
+        }
+    },
+    partialsDir: path.join(__dirname, 'VIEWS', 'partials')
+});
+app.engine('handlebars', hbs.engine);
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('VIEWS/public'));
@@ -60,43 +103,6 @@ conn.sync({force: true}).then(async () => {
         if (!adminExists) {
             const hashedPassword = await hashPassword("1234");
             const admin = await User.create({ nome: "admin", email: "admin@admin.com", password: hashedPassword });
-            const despesas = [
-                {
-                    descricao: "Compra de material de escritório",
-                    valor: 200.50,
-                    tipoDePagamento: "Dinheiro", 
-                    data: new Date(),
-                    userId: admin.id
-                },
-                {
-                    descricao: "Aluguel do mês",
-                    valor: 1500.00,
-                    tipoDePagamento: "Pix/Débito",  
-                    data: new Date(),
-                    userId: admin.id
-                },
-                {
-                    descricao: "Compra de café",
-                    valor: 50.00,
-                    tipoDePagamento: "Crédito", 
-                    data: new Date(),
-                    userId: admin.id
-                },
-                {
-                    descricao: "Internet e telefone",
-                    valor: 300.00,
-                    tipoDePagamento: "Pix/Débito",
-                    data: new Date(),
-                    userId: admin.id
-                },
-                {
-                    descricao: "Manutenção de computador",
-                    valor: 400.75,
-                    tipoDePagamento: "Dinheiro", 
-                    data: new Date(),
-                    userId: admin.id
-                }
-            ]; //mock de despesas
             
             // Cria as despesas no banco de dados
             await Promise.all(

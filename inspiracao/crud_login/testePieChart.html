@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChartJs</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div style="width: 400px; height: 400px;">
+        <canvas id="myChart"></canvas>
+    </div>
+    
+
+
+    <script>
+        const ctx = document.getElementById('myChart');
+        const despesas = [
+            {
+                descricao: "Compra de material de escritório",
+                valor: 200.50,
+                tipoDePagamento: "Dinheiro",
+                data: new Date(),
+                categoria: "Outros",
+                userId: 1
+            },
+            {
+                descricao: "Aluguel do mês",
+                valor: 1500.00,
+                tipoDePagamento: "Pix/Débito",
+                data: new Date(),
+                categoria: "Outros",
+                userId: 1
+            },
+            {
+                descricao: "Compra de café",
+                valor: 50.00,
+                tipoDePagamento: "Crédito",
+                data: new Date(),
+                categoria: "Lazer",
+                userId: 1
+            },
+            {
+                descricao: "Internet e telefone",
+                valor: 300.00,
+                tipoDePagamento: "Pix/Débito",
+                data: new Date(),
+                categoria: "Transporte",
+                userId: 1
+            },
+            {
+                descricao: "Manutenção de computador",
+                valor: 400.75,
+                tipoDePagamento: "Dinheiro",
+                data: new Date(),
+                categoria: "Saúde",
+                userId: 1
+            }
+        ]; //mock de despesas
+
+        const despesasLabel = [...new Set(despesas.map(despesa => despesa.categoria))];
+        const despesasPorCategoria = despesas.reduce((acc, despesa) => {
+            if (!acc[despesa.categoria]) {
+                acc[despesa.categoria] = 0;
+            }
+            acc[despesa.categoria] += despesa.valor;
+            return acc;
+        }, {});
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: despesasLabel,
+                datasets: [{
+                    label: 'Despesas por Categoria',
+                    data: Object.values(despesasPorCategoria), // Use os valores do objeto
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                }
+            }
+        });
+        
+    </script>
+</body>
+
+</html>

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/home", authUser, async (req, res) => {
     const userLogged = await User.findByPk(req.session.user.id, { raw: true, attributes: { exclude: ['password'] } });
-    res.render("home", {userData: userLogged});
+    res.render("home", {userData: userLogged, despesas});
 });
 
 module.exports = router
