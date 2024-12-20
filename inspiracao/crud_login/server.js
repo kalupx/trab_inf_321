@@ -10,50 +10,13 @@ const homeRoutes = require('./routes/homeRoutes');
 const despesasRoutes = require('./routes/despesasRoutes');
 const { hashPassword } = require('./UTILS/utils');
 const path = require('path');
-const despesas = [
-    {
-        descricao: "Compra de material de escritório",
-        valor: 200.50,
-        tipoDePagamento: "Dinheiro", 
-        data: new Date(),
-        userId: 1
-    },
-    {
-        descricao: "Aluguel do mês",
-        valor: 1500.00,
-        tipoDePagamento: "Pix/Débito",  
-        data: new Date(),
-        userId: 1
-    },
-    {
-        descricao: "Compra de café",
-        valor: 50.00,
-        tipoDePagamento: "Crédito", 
-        data: new Date(),
-        userId: 1
-    },
-    {
-        descricao: "Internet e telefone",
-        valor: 300.00,
-        tipoDePagamento: "Pix/Débito",
-        data: new Date(),
-        userId: 1
-    },
-    {
-        descricao: "Manutenção de computador",
-        valor: 400.75,
-        tipoDePagamento: "Dinheiro", 
-        data: new Date(),
-        userId: 1
-    }
-]; //mock de despesas
-
+const despesas = require('./mockDespesas.js');
+const flash = require('connect-flash');
 
 // Handlebar setup
 const app = express();
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'VIEWS'));
-
 const hbs = exphbs.create({
     helpers: {
         json: function (context) {
@@ -63,23 +26,30 @@ const hbs = exphbs.create({
     partialsDir: path.join(__dirname, 'VIEWS', 'partials')
 });
 app.engine('handlebars', hbs.engine);
+
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('VIEWS/public'));
-app.use(express.json())
+app.use(express.json());
 
 //MIDDLEWARE PARA SESSIONS, ROTAS ABAIXO DISSO!
 app.use(
     session({
         secret: 'MySecret', // Substituir!!!
         resave: false,
-        saveUninitialized: false,
+        saveUninitialized: true,
         cookie: { maxAge: 60000 * 5 },
     })
 );
 
+//flash messages
+app.use(flash());
+app.use((req, res, next) => {
+    res.locals.messages = req.flash();
+    next();
+});
 
-// Rota para validação de cadastro
+// Rota para validação de cadastro e login
 app.use(validaRoutes);
 
 // Rota para a página inicial (home)
@@ -101,7 +71,7 @@ conn.sync({force: true}).then(async () => {
         // Verifica se o usuário admin existe
         const adminExists = await User.findOne({ where: { nome: "admin" } });
         if (!adminExists) {
-            const hashedPassword = await hashPassword("1234");
+            const hashedPassword = await hashPassword("gN:k9!S85ogY");
             const admin = await User.create({ nome: "admin", email: "admin@admin.com", password: hashedPassword });
             
             // Cria as despesas no banco de dados
