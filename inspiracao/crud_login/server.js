@@ -60,9 +60,7 @@ app.use(despesasRoutes);
 
 // Rota para a página de login
 app.get('/', (req, res) => {
-    const passwordError = req.query.password;
-    const UserExists = req.query.UserExists === "true";
-    res.render('login', { passwordError, userExists: UserExists });
+    res.render('login');
 });
 
 // Sincroniza o banco de dados e inicia o servidor

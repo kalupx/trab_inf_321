@@ -35,8 +35,14 @@ class UserController {
                 email: email_address,
                 password: hashedPassword
             });
-
-            return res.redirect("/home");
+            req.session.user = {id: newUser.id, name: newUser.nome};
+            req.session.save((err) => {
+                if (err) {
+                    console.error("Erro ao salvar a sessão:", err);
+                    return res.status(500).send("Erro interno ao salvar sessão.");
+                }
+                return res.redirect("/home");
+            });
         } catch (error) {
             console.error("Erro ao criar usuário:", error);
             return res.status(500).json({ error: "Erro interno do servidor" });

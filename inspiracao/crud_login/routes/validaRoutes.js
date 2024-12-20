@@ -19,8 +19,13 @@ router.post("/valida_login", async (req, res) => {
 
                 if (isMatch) {
                     req.session.user = {id: userExists.id, name: userExists.nome};
-                    // res.render("home", { nome: req.session.user.name });
-                    return res.redirect("/home");
+                    req.session.save((err) => {
+                        if (err) {
+                            console.error("Erro ao salvar a sessão:", err);
+                            return res.status(500).send("Erro interno ao salvar sessão.");
+                        }
+                        return res.redirect("/home");
+                    });
                 } else {
                     req.flash("passwordError", "A senha que você inseriu está incorreta.")
                     return res.redirect("/");
