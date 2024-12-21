@@ -64,7 +64,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="/adicionar_despesa/{{userData.id}}" method="POST">
+                        <script>console.log("Userdataid", {{userData.id}})</script>
+                        <form action="/adicionar_despesa/{{userData.id}}" method="post">
                             <!-- Valor -->
                             <div class="mb-3">
                                 <label for="valor" class="form-label">Valor (R$)</label>

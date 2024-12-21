@@ -49,10 +49,18 @@
 </div>
 <script>
     window.onload = () =>{
-        const despesasPartial = {{{json despesas}}}
-        const totalDespesas = despesasPartial.reduce((sum, despesa) => sum + despesa.valor, 0);
-        console.log(totalDespesas);
+        const despesasPartial = {{{json despesas}}};
+        //console.log("Despesas partial:", despesasPartial);
+
+        let totalDespesas = 0;
+        if (Array.isArray(despesasPartial)) {
+            totalDespesas = despesasPartial.reduce(
+                (total, item) => total + (parseFloat(item.valor) || 0),
+                0
+            );
+        }
+
         const depesasElement = document.querySelector("#despesas_value");
-        depesasElement.innerHTML = totalDespesas
+        depesasElement.innerHTML = totalDespesas;
     }
 </script>

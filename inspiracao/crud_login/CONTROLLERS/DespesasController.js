@@ -50,19 +50,22 @@ class DespesasController {
             console.error(err);
         }
     }
-    static async getDespesas(req, res){
+    static async getDespesas(req, res, next){
         try {
-            const userLogged = await User.findByPk(req.session.user.id, { raw: true, attributes: { exclude: ['password'] } });
+            const userLogged = req.session.user.id;
+            // const userLogged = await User.findByPk(req.session.user.id, { raw: true, attributes: { exclude: ['password'] } });
     
             const despesas = await Despesa.findAll({
-                where: { userId: userLogged.id }, 
+                where: { userId: userLogged }, 
                 raw: true
             });
             despesas.forEach((despesa) => {
                 despesa.data = formatarData(despesa.data);
             })
             
-            res.render("despesas", {userData: userLogged, despesas: despesas}); 
+            // res.render("despesas", {despesas: despesas}); 
+            res.locals.despesas = despesas;
+            next();
         } catch (error) {
             console.error(error);
             res.status(500).send("Erro ao buscar despesas");

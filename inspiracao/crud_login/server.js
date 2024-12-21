@@ -63,6 +63,10 @@ app.get('/', (req, res) => {
     res.render('login');
 });
 
+
+app.get("*", (req, res)=>{
+    res.redirect('/'); //Criar pagina 404!!!
+})
 // Sincroniza o banco de dados e inicia o servidor
 conn.sync({force: true}).then(async () => {
     try {
