@@ -8,12 +8,12 @@ const Despesas = db.define("Despesas", {
         allowNull: false,     
     },
     valor: {
-        type: DataTypes.DECIMAL(10, 2), // Precisão: 10 dígitos, 2 casas decimais
+        type: DataTypes.DECIMAL(10, 2), 
         allowNull: false,
     },
     tipoDePagamento: {
         type: DataTypes.STRING,
-        defaultValue: "D", // D -> dinheiro, C -> crédito, P -> pix/débito
+        defaultValue: "Dinheiro", 
         allowNull: false,
     },
     data: {

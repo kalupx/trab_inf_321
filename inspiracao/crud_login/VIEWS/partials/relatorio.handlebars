@@ -6,7 +6,7 @@
                 <div class="card-body d-flex align-items-center">
                     <div>
                         <h6 class="text-muted">Saldo atual ></h6>
-                        <h5 class="fw-bold">R$ 0,00</h5>
+                        <h5 class="fw-bold" id="saldo_value">R$ 0,00</h5>
                     </div>
                     <i class="bi bi-bank fs-2 ms-auto text-primary"></i>
                 </div>
@@ -17,9 +17,13 @@
                 <div class="card-body d-flex align-items-center">
                     <div>
                         <h6 class="text-muted">Receitas ></h6>
-                        <h5 class="fw-bold">R$ 0,00</h5>
+                        <h5 class="fw-bold" id="total_receitas">R$ 0,00</h5>
                     </div>
-                    <i class="bi bi-arrow-up-circle-fill fs-2 ms-auto text-success"></i>
+                    {{!-- <i class="bi bi-arrow-up-circle-fill fs-2 ms-auto text-success"></i> --}}
+                    <i class="bi bi-arrow-up-circle-fill fs-2 ms-auto text-success" 
+                        id="openModalIcon" 
+                        style="cursor: pointer;">
+                    </i>
                 </div>
             </div>
         </div>
@@ -39,28 +43,161 @@
                 <div class="card-body d-flex align-items-center">
                     <div>
                         <h6 class="text-muted">Cartão de crédito ></h6>
-                        <h5 class="fw-bold">R$ 0,00</h5>
+                        <h5 class="fw-bold" id="credito_value">R$ 0,00</h5>
                     </div>
                     <i class="bi bi-credit-card-2-front-fill fs-2 ms-auto text-teal"></i>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="receitasModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Adicionar Receita</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="receitasForm" action="/adicionar_receita" method="post">
+                        <div class="mb-3">
+                            <label for="quantiaReceita" class="form-label">Quanto você ganhou?</label>
+                            <input name="valor" type="number" class="form-control" id="quantiaReceita" placeholder="Ex.: 500.00" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dataReceita" class="form-label">Data</label>
+                            <input name="data" type="date" class="form-control" id="dataReceita" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fonteReceita" class="form-label">Fonte da Receita</label>
+                            <input name="tipo" type="text" class="form-control" id="fonteReceita" placeholder="Ex.: Salário, Venda..." required minlength="3">
+                        </div>
+                        <input type="hidden" name="userId" value="{{userData.id}}">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" id="salvarReceitaBtn">Salvar Receita</button>
+                        </div>
+                    </form>
+                </div>
+                {{!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="salvarReceitaBtn">Salvar Receita</button>
+                </div> --}}
+            </div>
+        </div>
+    </div>
+
 </div>
 <script>
-    window.onload = () =>{
+    window.onload = () => {
         const despesasPartial = {{{json despesas}}};
-        //console.log("Despesas partial:", despesasPartial);
+        const somaTotalReceitas = {{{json receitas}}}.reduce((soma, item) => soma + item.valor, 0);
 
         let totalDespesas = 0;
+        let totalCredito = 0;
+
         if (Array.isArray(despesasPartial)) {
-            totalDespesas = despesasPartial.reduce(
-                (total, item) => total + (parseFloat(item.valor) || 0),
-                0
-            );
+            despesasPartial.forEach((item) => {
+                const valor = parseFloat(item.valor) || 0;
+                if (item.tipoDePagamento === "Crédito") {
+                    totalCredito += valor;
+                } else {
+                    totalDespesas += valor;
+                }
+            });
+        }
+
+        const saldo = getSaldo(somaTotalReceitas, totalCredito, totalDespesas);
+
+        animateNumber("#saldo_value", saldo);
+        animateNumber("#total_receitas", somaTotalReceitas);
+        animateNumber("#despesas_value", totalDespesas);
+        animateNumber("#credito_value", totalCredito);
+
+        const modal = new bootstrap.Modal(document.getElementById("receitasModal"));
+        const openModalIcon = document.getElementById("openModalIcon");
+
+        openModalIcon.addEventListener("click", () => {
+            modal.show();
+        });
+
+        function getSaldo(receitas, credito, despesas) {
+            const valorReceitas = parseFloat(receitas) || 0;
+            const valorCredito = parseFloat(credito) || 0;
+            const valorDespesas = parseFloat(despesas) || 0;
+
+            return receitas - (credito + despesas);
+        }
+
+        function animateNumber(selector, finalValue) {
+            const element = document.querySelector(selector);
+            const duration = 2000; // Duração total da animação em milissegundos
+            const stepTime = 50; // Intervalo de atualização em milissegundos
+            const steps = duration / stepTime;
+            const increment = finalValue / steps;
+
+            let currentValue = 0;
+            const interval = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= finalValue) {
+                    currentValue = finalValue;
+                    clearInterval(interval);
+                }
+                element.textContent = currentValue.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                });
+            }, stepTime);
+        }
+    };
+</script>
+
+<!--<script>
+    window.onload = () =>{
+        //console.log("Receitas: ", {{{json receitas}}})
+        const despesasPartial = {{{json despesas}}};
+        const somaTotalReceitas = {{{json receitas}}}.reduce((soma, item) => soma + item.valor, 0);
+        //console.log("Receitas soma: ", somaTotalReceitas);
+        let totalDespesas = 0;
+        let totalCredito = 0;
+
+        if (Array.isArray(despesasPartial)) {
+            despesasPartial.forEach((item) => {
+                const valor = parseFloat(item.valor) || 0;
+                if (item.tipoDePagamento === "Crédito") {
+                    totalCredito += valor;
+                } else {
+                    totalDespesas += valor;
+                }
+            });
         }
 
         const depesasElement = document.querySelector("#despesas_value");
-        depesasElement.innerHTML = totalDespesas;
+        const creditoElement = document.querySelector("#credito_value");
+        depesasElement.innerHTML = totalDespesas.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        creditoElement.innerHTML = totalCredito.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        document.getElementById("total_receitas").textContent = somaTotalReceitas.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });;
+
+        const modal = new bootstrap.Modal(document.getElementById("receitasModal"));
+        const openModalIcon = document.getElementById("openModalIcon");
+
+        // Adiciona o evento de clique no ícone
+        openModalIcon.addEventListener("click", () => {
+            modal.show();
+        });
+        
+        const saldo = getSaldo(somaTotalReceitas, totalCredito, totalDespesas);
+        const saldoElement = document.getElementById("saldo_value");
+        saldoElement.innerHTML = saldo.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+
+        function getSaldo(receitas, credito, despesas) {
+            const valorReceitas = parseFloat(receitas) || 0;
+            const valorCredito = parseFloat(credito) || 0;
+            const valorDespesas = parseFloat(despesas) || 0;
+
+            return receitas - (credito + despesas);
+        }
+
     }
-</script>
+</script>-->

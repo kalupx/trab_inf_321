@@ -13,6 +13,10 @@ const User = db.define("User", {
     password:{
         type: DataTypes.STRING,
         allowNull: false
+    },
+    saldo:{
+        type: DataTypes.DECIMAL(10,2),
+        defaultValue: 0,
     }
 })
 

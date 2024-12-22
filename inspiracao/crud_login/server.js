@@ -8,10 +8,12 @@ const session = require('express-session');
 const validaRoutes = require('./routes/validaRoutes');
 const homeRoutes = require('./routes/homeRoutes');
 const despesasRoutes = require('./routes/despesasRoutes');
+const userRoutes = require('./routes/receitasRoutes.js');
 const { hashPassword } = require('./UTILS/utils');
 const path = require('path');
 const despesas = require('./mockDespesas.js');
 const flash = require('connect-flash');
+
 
 // Handlebar setup
 const app = express();
@@ -49,6 +51,9 @@ app.use((req, res, next) => {
     next();
 });
 
+//rotas de usuario
+app.use(userRoutes);
+
 // Rota para validação de cadastro e login
 app.use(validaRoutes);
 
@@ -64,9 +69,9 @@ app.get('/', (req, res) => {
 });
 
 
-app.get("*", (req, res)=>{
-    res.redirect('/'); //Criar pagina 404!!!
-})
+// app.get("*", (req, res)=>{
+//     res.redirect('/'); //Criar pagina 404!!!
+// })
 // Sincroniza o banco de dados e inicia o servidor
 conn.sync({force: true}).then(async () => {
     try {
