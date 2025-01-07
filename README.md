@@ -18,53 +18,54 @@ O site será projetado com base em **simplicidade e praticidade**, incentivando 
 ### Cadastro e Login  
 Para acessar o sistema, o usuário deverá se cadastrar com os seguintes dados:  
 
-- Nome completo  
-- E-mail  
-- Senha  
+- [ ] Nome completo  
+- [ ] E-mail  
+- [ ] Senha  
 
 Após o cadastro, será possível realizar login para acessar os recursos do sistema.  
 
 ### Registro de Renda e Gastos  
 Após o login, o usuário poderá:  
 
-1. Informar sua **renda mensal**.  
-2. Registrar despesas categorizadas, como:  
-   - Alimentação  
-   - Moradia  
-   - Transporte  
-   - Lazer  
-   - Educação  
-   - Outros  
+1. [ ] Informar sua **renda mensal**.  
+2. [ ] Registrar despesas categorizadas, como:  
+   - [ ] Alimentação  
+   - [ ] Moradia  
+   - [ ] Transporte  
+   - [ ] Lazer  
+   - [ ] Educação  
+   - [ ] Outros  
+
 
 Cada despesa deverá incluir a data, o valor e a categoria correspondente.  
 
 ### Relatórios e Dashboard  
 O sistema gerará relatórios detalhados, exibindo:  
 
-- Percentual gasto em cada categoria.  
-- Gráficos interativos (pizza, barra) para análise visual dos dados.  
-- Histórico de despesas por período.  
-- Indicação de sobra ou déficit no orçamento mensal.  
+- [ ] Percentual gasto em cada categoria.  
+- [ ] Gráficos interativos (pizza, barra) para análise visual dos dados.  
+- [ ] Histórico de despesas por período.  
+- [ ] Indicação de sobra ou déficit no orçamento mensal.  
 
 ### Planejamento e Metas  
 O usuário poderá configurar metas financeiras, como:  
 
-- Economizar uma porcentagem específica da renda mensal.  
-- Limitar o gasto em determinadas categorias.  
-- Monitorar o progresso dessas metas no dashboard.  
+- [ ] Economizar uma porcentagem específica da renda mensal.  
+- [ ] Limitar o gasto em determinadas categorias.  
+- [ ] Monitorar o progresso dessas metas no dashboard.  
 
 ### Persistência e Histórico  
 Todas as informações cadastradas serão salvas, permitindo ao usuário consultar:  
 
-- **Histórico de rendas** e despesas passadas.  
-- Alterações realizadas nas metas e registros ao longo do tempo.  
+- [ ] **Histórico de rendas** e despesas passadas.  
+- [ ] Alterações realizadas nas metas e registros ao longo do tempo.  
 
 ### Funcionalidades Administrativas  
 Um administrador poderá acessar o sistema para fins de monitoramento e manutenção, sendo capaz de:  
 
-- Emitir relatórios de uso do sistema.  
-- Gerenciar usuários cadastrados.  
-- Monitorar problemas técnicos e corrigir inconsistências no sistema.  
+- [ ] Emitir relatórios de uso do sistema.  
+- [ ] Gerenciar usuários cadastrados.  
+- [ ] Monitorar problemas técnicos e corrigir inconsistências no sistema.  
 
 ---
 
@@ -72,10 +73,10 @@ Um administrador poderá acessar o sistema para fins de monitoramento e manuten�
 
 O sistema contará com uma interface intuitiva, onde:  
 
-1. Um **dashboard financeiro** exibe as principais informações resumidas.  
-2. O usuário poderá navegar por páginas que permitem:  
-   - Registro de novos dados.  
-   - Edição ou exclusão de registros existentes.  
+1. [ ] Um **dashboard financeiro** exibe as principais informações resumidas.  
+2. [ ] O usuário poderá navegar por páginas que permitem:  
+   - [ ] Registro de novos dados.  
+   - [ ] Edição ou exclusão de registros existentes.  
 
 **Importante:** As sessões do usuário serão gerenciadas com o uso de cookies, permitindo que o sistema restaure o estado de navegação e exiba informações previamente registradas em visitas anteriores.  
 
