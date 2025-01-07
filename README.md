@@ -18,9 +18,9 @@ O site será projetado com base em **simplicidade e praticidade**, incentivando 
 ### Cadastro e Login  
 Para acessar o sistema, o usuário deverá se cadastrar com os seguintes dados:  
 
-- [ ] Nome completo  
-- [ ] E-mail  
-- [ ] Senha  
+- [x] Nome completo  
+- [x] E-mail  
+- [x] Senha  
 
 Após o cadastro, será possível realizar login para acessar os recursos do sistema.  
 
@@ -28,13 +28,13 @@ Após o cadastro, será possível realizar login para acessar os recursos do sis
 Após o login, o usuário poderá:  
 
 1. [ ] Informar sua **renda mensal**.  
-2. [ ] Registrar despesas categorizadas, como:  
-   - [ ] Alimentação  
-   - [ ] Moradia  
-   - [ ] Transporte  
-   - [ ] Lazer  
-   - [ ] Educação  
-   - [ ] Outros  
+2. [x] Registrar despesas categorizadas, como:  
+   - [x] Alimentação  
+   - [x] Moradia  
+   - [x] Transporte  
+   - [x] Lazer  
+   - [x] Educação  
+   - [x] Outros  
 
 
 Cada despesa deverá incluir a data, o valor e a categoria correspondente.  
@@ -42,7 +42,7 @@ Cada despesa deverá incluir a data, o valor e a categoria correspondente.
 ### Relatórios e Dashboard  
 O sistema gerará relatórios detalhados, exibindo:  
 
-- [ ] Percentual gasto em cada categoria.  
+- [x] Percentual gasto em cada categoria.  
 - [ ] Gráficos interativos (pizza, barra) para análise visual dos dados.  
 - [ ] Histórico de despesas por período.  
 - [ ] Indicação de sobra ou déficit no orçamento mensal.  
