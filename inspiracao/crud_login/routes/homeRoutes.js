@@ -8,8 +8,16 @@ const router = express.Router();
 
 router.get("/home", authUser, DespesasController.getDespesas, ReceitaController.getReceitas, async (req, res) => {
     const userData = await User.findByPk(req.session.user.id, { raw: true, attributes: { exclude: ['password'] } });
-    res.render("home", {userData});
+
+    //usar flash messages!
+    const isNewUser = req.query.newUser === 'True';
+    if (isNewUser) {
+        console.log("Bem-vindo, novo usuário!");
+    }
+
+    res.render("home", { userData, isNewUser });
 });
+
 
 
 module.exports = router

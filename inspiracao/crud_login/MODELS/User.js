@@ -17,6 +17,10 @@ const User = db.define("User", {
     saldo:{
         type: DataTypes.DECIMAL(10,2),
         defaultValue: 0,
+    },
+    renda: {
+        type: DataTypes.DECIMAL(10,2),
+        defaultValue: 0
     }
 })
 

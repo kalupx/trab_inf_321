@@ -41,7 +41,9 @@ class UserController {
                     console.error("Erro ao salvar a sessão:", err);
                     return res.status(500).send("Erro interno ao salvar sessão.");
                 }
-                return res.redirect("/home");
+                req.flash('newUser', newUser.nome);
+                console.log("req.flash em user controller", req.flash('newUser'));   
+                return res.redirect("/home?newUser=True");
             });
         } catch (error) {
             console.error("Erro ao criar usuário:", error);

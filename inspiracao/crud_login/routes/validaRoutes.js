@@ -46,9 +46,8 @@ router.get("/logout", (req, res)=>{
             console.error("Erro ao destruir a sessão:", err);
             return res.status(500).send("Erro ao fazer logout.");
         }
-        // Limpa o cookie da sessão (opcional)
-        res.clearCookie("connect.sid"); // Nome padrão do cookie no express-session
-        return res.redirect("/"); // Redireciona para a página de login
+        res.clearCookie("connect.sid"); 
+        return res.redirect("/"); 
     });
 });
 
