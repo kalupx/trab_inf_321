@@ -27,7 +27,7 @@ Após o cadastro, será possível realizar login para acessar os recursos do sis
 ### Registro de Renda e Gastos  
 Após o login, o usuário poderá:  
 
-1. [ ] Informar sua **renda mensal**.  
+1. [x] Informar sua **renda mensal**.  
 2. [x] Registrar despesas categorizadas, como:  
    - [x] Alimentação  
    - [x] Moradia  
