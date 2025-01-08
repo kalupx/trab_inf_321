@@ -13,7 +13,7 @@ const { hashPassword } = require('./UTILS/utils');
 const path = require('path');
 const despesas = require('./mockDespesas.js');
 const flash = require('connect-flash');
-
+const UserController = require('./CONTROLLERS/UsersController.js')
 
 // Handlebar setup
 const app = express();
@@ -62,6 +62,8 @@ app.use(homeRoutes);
 
 //rota para cadastro de despesa
 app.use(despesasRoutes);
+
+app.post("/add_renda", UserController.addRenda)
 
 // Rota para a página de login
 app.get('/', (req, res) => {

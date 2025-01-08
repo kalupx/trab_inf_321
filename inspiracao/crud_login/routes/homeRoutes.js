@@ -11,10 +11,6 @@ router.get("/home", authUser, DespesasController.getDespesas, ReceitaController.
 
     //usar flash messages!
     const isNewUser = req.query.newUser === 'True';
-    if (isNewUser) {
-        console.log("Bem-vindo, novo usuário!");
-    }
-
     res.render("home", { userData, isNewUser });
 });
 

@@ -41,8 +41,7 @@ class UserController {
                     console.error("Erro ao salvar a sessão:", err);
                     return res.status(500).send("Erro interno ao salvar sessão.");
                 }
-                req.flash('newUser', newUser.nome);
-                console.log("req.flash em user controller", req.flash('newUser'));   
+                req.flash('newUser', newUser.nome);  
                 return res.redirect("/home?newUser=True");
             });
         } catch (error) {
@@ -50,6 +49,31 @@ class UserController {
             return res.status(500).json({ error: "Erro interno do servidor" });
         }
     }
+
+    static async addRenda(req, res) {
+        try {
+            const { userIncome, userId } = req.body;
+    
+            if (!userIncome || !userId) {
+                return res.status(400).json({ message: "Parâmetros inválidos." });
+            }
+    
+            const user = await User.findByPk(userId);
+    
+            if (!user) {
+                return res.status(404).json({ message: "Usuário não encontrado." });
+            }
+    
+            user.renda = userIncome;
+            await user.save();
+    
+            res.redirect('/home');
+        } catch (error) {
+            res.redirect('/')
+            // return res.status(500).json({ message: "Erro interno do servidor." });
+        }
+    }
+    
 }
 
 module.exports = UserController;
