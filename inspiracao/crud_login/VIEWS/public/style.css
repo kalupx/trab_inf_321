@@ -1,9 +1,12 @@
 body {
     background: linear-gradient(135deg, #6a0dad, #ff7eb3);
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 .card {
     border: none;

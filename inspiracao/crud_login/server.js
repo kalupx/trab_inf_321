@@ -8,7 +8,8 @@ const session = require('express-session');
 const validaRoutes = require('./routes/validaRoutes');
 const homeRoutes = require('./routes/homeRoutes');
 const despesasRoutes = require('./routes/despesasRoutes');
-const userRoutes = require('./routes/receitasRoutes.js');
+const receitasRoutes = require('./routes/receitasRoutes.js');
+const userRoutes = require('./routes/userRoutes.js');
 const { hashPassword } = require('./UTILS/utils');
 const path = require('path');
 const despesas = require('./mockDespesas.js');
@@ -52,7 +53,7 @@ app.use((req, res, next) => {
 });
 
 //rotas de usuario
-app.use(userRoutes);
+app.use(receitasRoutes);
 
 // Rota para validação de cadastro e login
 app.use(validaRoutes);
@@ -63,7 +64,11 @@ app.use(homeRoutes);
 //rota para cadastro de despesa
 app.use(despesasRoutes);
 
+//rota para user config
+app.use(userRoutes);
+
 app.post("/add_renda", UserController.addRenda)
+
 
 // Rota para a página de login
 app.get('/', (req, res) => {

@@ -74,6 +74,40 @@ class UserController {
         }
     }
     
+    static async updateUser(req, res) {
+        try {
+            // Log para verificar os dados recebidos
+            console.log("estou em user controller", req.body);
+    
+            // Extrair os dados da requisição
+            const { username, userId } = req.body;
+    
+            // Verificar se os campos necessários foram fornecidos
+            if (!username || !userId) {
+                //redirecionar pedindo nome...:?
+                return res.status(400).json({ message: "Campos obrigatórios não fornecidos." });
+            }
+    
+            const user = await User.findByPk(userId);
+    
+            // Verificar se o usuário existe
+            if (!user) {
+                //retornar erro, tirar o json
+                return res.status(404).json({ message: "Usuário não encontrado." });
+            }
+    
+            // Atualizar os dados do usuário
+            await user.update({ nome: username });
+            
+            return res.redirect('/home')
+
+        } catch (error) {
+            // Tratar erros e retornar uma resposta de erro
+            console.error("Erro ao atualizar usuário:", error);
+            return res.status(500).json({ message: "Erro interno no servidor." });
+        }
+    }
+    
 }
 
 module.exports = UserController;

@@ -62,7 +62,7 @@
                     <form id="receitasForm" action="/adicionar_receita" method="post">
                         <div class="mb-3">
                             <label for="quantiaReceita" class="form-label">Quanto você ganhou?</label>
-                            <input name="valor" type="number" class="form-control" id="quantiaReceita" placeholder="Ex.: 500.00" required>
+                            <input name="valor" type="number" class="form-control" id="quantiaReceita" placeholder="Ex.: 500.00" required   step="0.01">
                         </div>
                         <div class="mb-3">
                             <label for="dataReceita" class="form-label">Data</label>
@@ -151,53 +151,3 @@
         }
     };
 </script>
-
-<!--<script>
-    window.onload = () =>{
-        //console.log("Receitas: ", {{{json receitas}}})
-        const despesasPartial = {{{json despesas}}};
-        const somaTotalReceitas = {{{json receitas}}}.reduce((soma, item) => soma + item.valor, 0);
-        //console.log("Receitas soma: ", somaTotalReceitas);
-        let totalDespesas = 0;
-        let totalCredito = 0;
-
-        if (Array.isArray(despesasPartial)) {
-            despesasPartial.forEach((item) => {
-                const valor = parseFloat(item.valor) || 0;
-                if (item.tipoDePagamento === "Crédito") {
-                    totalCredito += valor;
-                } else {
-                    totalDespesas += valor;
-                }
-            });
-        }
-
-        const depesasElement = document.querySelector("#despesas_value");
-        const creditoElement = document.querySelector("#credito_value");
-        depesasElement.innerHTML = totalDespesas.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-        creditoElement.innerHTML = totalCredito.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-        document.getElementById("total_receitas").textContent = somaTotalReceitas.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });;
-
-        const modal = new bootstrap.Modal(document.getElementById("receitasModal"));
-        const openModalIcon = document.getElementById("openModalIcon");
-
-        // Adiciona o evento de clique no ícone
-        openModalIcon.addEventListener("click", () => {
-            modal.show();
-        });
-        
-        const saldo = getSaldo(somaTotalReceitas, totalCredito, totalDespesas);
-        const saldoElement = document.getElementById("saldo_value");
-        saldoElement.innerHTML = saldo.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-
-
-        function getSaldo(receitas, credito, despesas) {
-            const valorReceitas = parseFloat(receitas) || 0;
-            const valorCredito = parseFloat(credito) || 0;
-            const valorDespesas = parseFloat(despesas) || 0;
-
-            return receitas - (credito + despesas);
-        }
-
-    }
-</script>-->

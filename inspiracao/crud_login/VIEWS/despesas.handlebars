@@ -1,6 +1,8 @@
 <div class="d-flex w-100">
     <!-- Partial Menu -->
-    {{> menu}}
+    <div style="height: 100vh;">
+        {{> menu}}
+    </div>
     <div class="container mt-5">
 
         <!-- Saudação -->
@@ -199,4 +201,10 @@
     </script>
 
 </div>
+<style>
+    .container {
+        margin-left: 250px; /* Espaço igual à largura do menu */
+        padding: 20px;
+    }
+</style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
