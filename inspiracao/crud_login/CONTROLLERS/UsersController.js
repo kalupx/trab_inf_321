@@ -80,7 +80,7 @@ class UserController {
             console.log("estou em user controller", req.body);
     
             // Extrair os dados da requisição
-            const { username, userId } = req.body;
+            const { username, renda, userId } = req.body;
     
             // Verificar se os campos necessários foram fornecidos
             if (!username || !userId) {
@@ -97,7 +97,7 @@ class UserController {
             }
     
             // Atualizar os dados do usuário
-            await user.update({ nome: username });
+            await user.update({ nome: username, renda });
             
             return res.redirect('/home')
 

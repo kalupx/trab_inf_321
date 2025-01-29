@@ -41,7 +41,7 @@ app.use(
         secret: 'MySecret', // Substituir!!!
         resave: false,
         saveUninitialized: true,
-        cookie: { maxAge: 60000 * 5 },
+        cookie: { maxAge: 60000 * 5 * 5 },
     })
 );
 
