@@ -8,10 +8,10 @@
     </div>
 
     <!-- Conteúdo Principal -->
-    <div class="container d-flex align-items-center justify-content-start flex-column" style="height: 100vh;">
+    <div class="container-md d-flex align-items-center justify-content-start flex-column" style="height: 100vh; margin: 0;">
         {{> relatorio}}
-        <div class="container d-flex justify-content-between align-items-center" style="height: 65%;">
-            <div class="card" style="width: 49%; padding: 1rem; border-radius: 15px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); background-color: #f8f9fa;">
+        <div class="container-md d-flex justify-content-between align-items-center p-0 flex-wrap" style="height: 65%;">
+            <div class="card order-1 order-md-1 mb-4" style="min-width: 350px; width: 49%; padding: 1rem; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); background-color: #f8f9fa;">
                 <h5 style="margin-bottom: 20px; text-align: center; font-weight: bold;">Despesas por categoria</h5>
                 <div style="width: 300px; margin: 0 auto;">
                     <canvas id="myChart"></canvas>
@@ -20,7 +20,7 @@
             </div>
 
             <!-- Texto à direita -->
-            <h1 class="display-4 fw-bold" style="color: #6a0dad;">Olá {{userData.nome}}</h1>
+            <h1 class="display-4 fw-bold order-2 order-md-2 mb-4" style="color: #6a0dad;">Olá {{userData.nome}}</h1>
         </div>
 
 

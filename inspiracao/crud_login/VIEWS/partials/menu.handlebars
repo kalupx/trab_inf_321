@@ -1,4 +1,4 @@
-<nav class="bg-dark text-white p-3 d-flex flex-column sidebar">
+{{!-- <nav class="bg-dark text-white p-3 d-flex flex-column sidebar">
     <h4 class="fw-bold text-center mb-4">Menu</h4>
     <ul class="nav flex-column">
         <li class="nav-item">
@@ -16,27 +16,86 @@
                 <i class="bi bi-person me-2"></i> Perfil
             </a>
         </li>
-        {{!-- <li class="nav-item">
+         <li class="nav-item">
             <a href="#" class="nav-link text-white d-flex align-items-center">
                 <i class="bi bi-gear me-2"></i> Configurações
             </a>
-        </li> --}}
+        </li> 
         <li class="nav-item">
             <a href="/logout" class="nav-link text-white d-flex align-items-center">
                 <i class="bi bi-box-arrow-left me-2"></i> Sair
             </a>
         </li>
     </ul>
-</nav>
+</nav> --}}
 
-<style>
-    .sidebar {
-        width: 250px; /* Largura do menu */
+ <style>
+    #sidebar {
         height: 100vh; /* Ocupa 100% da altura da viewport */
-        position: fixed; /* Fixa o menu na tela */
         top: 0; /* Alinha ao topo */
         left: 0; /* Alinha ao lado esquerdo */
         overflow-y: auto; /* Permite rolagem caso o conteúdo exceda a altura */
         z-index: 1050; /* Garante que fique sobre outros elementos */
     }
+    .toggler-btn {
+        text-decoration: underline;
+        display: inline-block;
+    }
 </style>
+
+<div class="d-flex">
+    {{!-- Sidebar --}}
+    <aside id="sidebar" class="sidebar-toggle bg-dark text-white p-3">
+        <div class="sidebar-logo">
+            <a>MoneyCare</a>
+        </div>
+
+        {{!-- Sidebar Navigation --}}
+        <ul class="sidebar-nav p-0">
+            {{!-- <li class="sidebar-header">
+                Tools & Components
+            </li> --}}
+            <li class="sidebar-item">
+                <a href="home" class="sidebar-link">
+                    <i class="bi bi-house-door me-2"></i>
+                    <span>Início</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="despesas" class="sidebar-link">
+                    <i class="bi bi-cash-coin me-2"></i>
+                    <span>Despesas</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="user_perfil" class="sidebar-link">
+                    <i class="bi bi-person me-2"></i>
+                    <span>Perfil</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="logout" class="sidebar-link">
+                    <i class="bi bi-box-arrow-left me-2"></i>
+                    <span>Sair</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    {{!-- Main Component --}}
+    <div class="main-content">
+        <nav class="navbar navbar-expand border-bottom">
+            <button class="toggler-btn" type="button" id="sidebar-toggler">
+                <i class="bi bi-list"></i>
+            </button>
+        </nav>
+    </div>
+</div>
+
+<script>
+    const toggler = document.querySelector('#sidebar-toggler');
+
+    toggler.addEventListener("click", function () {
+    document.querySelector("#sidebar").classList.toggle("collapsed");
+  });
+</script>

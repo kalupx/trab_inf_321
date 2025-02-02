@@ -1,8 +1,8 @@
-<div class="container my-4">
+<div class="container-md my-4">
     <h2 class="fw-bold mb-4">Dashboard</h2>
     <div class="row">
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0">
+        <div class="cards col-12 col-md-6 col-lg-3 mb-4">
+            <div class="card shadow-sm border-0 h-100">
                 <div class="card-body d-flex align-items-center">
                     <div>
                         <h6 class="text-muted">Saldo atual ></h6>
@@ -12,23 +12,19 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0">
+        <div class="cards col-12 col-md-6 col-lg-3 mb-4">
+            <div class="card shadow-sm border-0 h-100">
                 <div class="card-body d-flex align-items-center">
                     <div>
                         <h6 class="text-muted">Receitas ></h6>
                         <h5 class="fw-bold" id="total_receitas">R$ 0,00</h5>
                     </div>
-                    {{!-- <i class="bi bi-arrow-up-circle-fill fs-2 ms-auto text-success"></i> --}}
-                    <i class="bi bi-arrow-up-circle-fill fs-2 ms-auto text-success" 
-                        id="openModalIcon" 
-                        style="cursor: pointer;">
-                    </i>
+                    <i class="bi bi-arrow-up-circle-fill fs-2 ms-auto text-success" id="openModalIcon" style="cursor: pointer;"></i>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0">
+        <div class="cards col-12 col-md-6 col-lg-3 mb-4">
+            <div class="card shadow-sm border-0 h-100">
                 <div class="card-body d-flex align-items-center">
                     <div>
                         <h6 class="text-muted">Despesas ></h6>
@@ -38,8 +34,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0">
+        <div class="cards col-12 col-md-6 col-lg-3 mb-4">
+            <div class="card shadow-sm border-0 h-100">
                 <div class="card-body d-flex align-items-center">
                     <div>
                         <h6 class="text-muted">Cartão de crédito ></h6>
@@ -62,7 +58,7 @@
                     <form id="receitasForm" action="/adicionar_receita" method="post">
                         <div class="mb-3">
                             <label for="quantiaReceita" class="form-label">Quanto você ganhou?</label>
-                            <input name="valor" type="number" class="form-control" id="quantiaReceita" placeholder="Ex.: 500.00" required   step="0.01">
+                            <input name="valor" type="number" class="form-control" id="quantiaReceita" placeholder="Ex.: 500.00" required step="0.01">
                         </div>
                         <div class="mb-3">
                             <label for="dataReceita" class="form-label">Data</label>
@@ -79,15 +75,17 @@
                         </div>
                     </form>
                 </div>
-                {{!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="salvarReceitaBtn">Salvar Receita</button>
-                </div> --}}
             </div>
         </div>
     </div>
-
 </div>
+
+<style>
+    .row-gap {
+        row-gap: 1rem;
+    }
+</style>
+
 <script>
     window.onload = () => {
         const despesasPartial = {{{json despesas}}};
